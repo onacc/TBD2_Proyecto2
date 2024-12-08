@@ -242,7 +242,8 @@ public class main extends javax.swing.JFrame {
 
     private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
        ConectMySQL conect = new ConectMySQL();
-       conect.conectar();
+       //conect.conectarMySQL();
+       conect.conectarOracle();
     }//GEN-LAST:event_testActionPerformed
 
     /**

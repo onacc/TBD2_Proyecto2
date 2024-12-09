@@ -78,6 +78,7 @@ public class main extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         JT_BDD_instancia = new javax.swing.JTextField();
         JB_Guardar = new javax.swing.JButton();
+        Desconectar = new javax.swing.JButton();
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel14.setText("Sin Replicar");
@@ -269,6 +270,13 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        Desconectar.setText("Desconectar");
+        Desconectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DesconectarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -332,6 +340,10 @@ public class main extends javax.swing.JFrame {
                         .addGap(208, 208, 208)
                         .addComponent(JB_BDO_probar)))
                 .addContainerGap(168, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Desconectar)
+                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,7 +400,9 @@ public class main extends javax.swing.JFrame {
                 .addComponent(JB_BDD_probar)
                 .addGap(29, 29, 29)
                 .addComponent(JB_Guardar)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(Desconectar)
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -406,14 +420,19 @@ public class main extends javax.swing.JFrame {
         origen = new ConectMySQL(JT_BDO_usuario.getText(),JT_BDO_password.getText(),JT_BDO_puerto.getText());
         origen.conectar();
         String base ="";
-        if(origen.getPort().equals("3306")){
-            base = "MySQL";
-        }else if (origen.getPort().equals("1521")){
-            base = "Oracle";
+        if(JT_BDO_usuario.getText().equals("admin")||JT_BDO_password.getText().equals("12151024")){
+            if(origen.getPort().equals("3306")){
+                base = "MySQL";
+            }else if (origen.getPort().equals("1521")){
+                base = "Oracle";
+            }else{
+               JOptionPane.showMessageDialog(this, "Puerto de conexion no conocido.");
+            }
+
+            JOptionPane.showMessageDialog(this, "Conectado a base de datos " + base+"  "+ origen.getURL());
         }else{
-           JOptionPane.showMessageDialog(this, "Puerto de conexion no conocido.");
+            JOptionPane.showMessageDialog(this, "Autentificacion fallida");
         }
-        JOptionPane.showMessageDialog(this, "Conectado a base de datos " + base+"  "+ origen.getURL());
     }//GEN-LAST:event_JB_BDO_probarMouseClicked
 
     private void JB_BDD_probarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JB_BDD_probarMouseClicked
@@ -421,14 +440,18 @@ public class main extends javax.swing.JFrame {
         destino = new ConectMySQL(JT_BDD_usuario.getText(),JT_BDD_password.getText(),JT_BDD_puerto.getText());
         destino.conectar();
         String base ="";
-        if(destino.getPort().equals("3306")){
-            base = "MySQL";
-        }else if (destino.getPort().equals("1521")){
-            base = "Oracle";
+        if(JT_BDD_usuario.getText().equals("admin")||JT_BDD_password.getText().equals("12151024")){
+            if(destino.getPort().equals("3306")){
+                base = "MySQL";
+            }else if (destino.getPort().equals("1521")){
+                base = "Oracle";
+            }else{
+               JOptionPane.showMessageDialog(this, "Puerto de conexion no conocido.");
+            }
+            JOptionPane.showMessageDialog(this, "Conectado a base de datos " + base+"  "+ destino.getURL());
         }else{
-           JOptionPane.showMessageDialog(this, "Puerto de conexion no conocido.");
+            JOptionPane.showMessageDialog(this, "Autentificacion fallida");
         }
-        JOptionPane.showMessageDialog(this, "Conectado a base de datos " + base+"  "+ destino.getURL());
                     
     }//GEN-LAST:event_JB_BDD_probarMouseClicked
    public static void populateTableWithList(JTable table, ArrayList<String> list) {
@@ -509,7 +532,14 @@ public class main extends javax.swing.JFrame {
               System.out.println(object);
         }
         //return to sender aca
+        destino.transferTables(origen, destino, sender);
+        JOptionPane.showMessageDialog(jd_transfer, "Transferencia completa.");
     }//GEN-LAST:event_GuardarActionPerformed
+
+    private void DesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesconectarActionPerformed
+        destino.desconectar();
+        origen.desconectar();
+    }//GEN-LAST:event_DesconectarActionPerformed
     public void addSelectedRowToAnotherTable(JTable originTable, JTable destinyTable) {
    
     DefaultTableModel originModel = (DefaultTableModel) originTable.getModel();
@@ -577,6 +607,7 @@ public class main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
+    private javax.swing.JButton Desconectar;
     private javax.swing.JButton Guardar;
     private javax.swing.JButton JB_BDD_probar;
     private javax.swing.JButton JB_BDO_probar;

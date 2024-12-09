@@ -4,6 +4,18 @@
  */
 package tbd2_project;
 
+import com.mysql.cj.jdbc.DatabaseMetaData;
+import com.sun.jdi.connect.spi.Connection;
+import java.awt.List;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author gcano
@@ -28,6 +40,18 @@ public class main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jd_transfer = new javax.swing.JDialog();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        RIGHT = new javax.swing.JButton();
+        LEFT = new javax.swing.JButton();
+        Guardar = new javax.swing.JButton();
+        Cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -42,7 +66,7 @@ public class main extends javax.swing.JFrame {
         JT_BDO_instancia = new javax.swing.JTextField();
         JB_BDO_probar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        JB_BDO_probar1 = new javax.swing.JButton();
+        JB_BDD_probar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -54,7 +78,124 @@ public class main extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         JT_BDD_instancia = new javax.swing.JTextField();
         JB_Guardar = new javax.swing.JButton();
-        test = new javax.swing.JButton();
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel14.setText("Sin Replicar");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel15.setText("Replicando");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel16.setText("Tablas BD Origen");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tablas"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tablas"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        RIGHT.setText(">>");
+        RIGHT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RIGHTActionPerformed(evt);
+            }
+        });
+
+        LEFT.setText("<<");
+        LEFT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LEFTActionPerformed(evt);
+            }
+        });
+
+        Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
+
+        Cancelar.setText("Cancelar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jd_transferLayout = new javax.swing.GroupLayout(jd_transfer.getContentPane());
+        jd_transfer.getContentPane().setLayout(jd_transferLayout);
+        jd_transferLayout.setHorizontalGroup(
+            jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_transferLayout.createSequentialGroup()
+                .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jd_transferLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jd_transferLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Guardar)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(RIGHT)
+                            .addComponent(LEFT))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Cancelar))))
+                .addGap(28, 28, 28))
+            .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jd_transferLayout.createSequentialGroup()
+                    .addGap(216, 216, 216)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(348, Short.MAX_VALUE)))
+        );
+        jd_transferLayout.setVerticalGroup(
+            jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_transferLayout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_transferLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jd_transferLayout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(RIGHT)
+                        .addGap(32, 32, 32)
+                        .addComponent(LEFT)))
+                .addGap(29, 29, 29)
+                .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Guardar)
+                    .addComponent(Cancelar))
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(jd_transferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jd_transferLayout.createSequentialGroup()
+                    .addGap(48, 48, 48)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(527, Short.MAX_VALUE)))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,11 +221,31 @@ public class main extends javax.swing.JFrame {
         jLabel7.setText("Password");
 
         JB_BDO_probar.setText("Probar");
+        JB_BDO_probar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JB_BDO_probarMouseClicked(evt);
+            }
+        });
+        JB_BDO_probar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_BDO_probarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Nombre Base Datos");
 
-        JB_BDO_probar1.setText("Probar");
+        JB_BDD_probar.setText("Probar");
+        JB_BDD_probar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JB_BDD_probarMouseClicked(evt);
+            }
+        });
+        JB_BDD_probar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_BDD_probarActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Puerto");
@@ -102,11 +263,9 @@ public class main extends javax.swing.JFrame {
         jLabel13.setText("Nombre Instancia");
 
         JB_Guardar.setText("Guardar");
-
-        test.setText("jButton1");
-        test.addActionListener(new java.awt.event.ActionListener() {
+        JB_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                testActionPerformed(evt);
+                JB_GuardarActionPerformed(evt);
             }
         });
 
@@ -167,15 +326,12 @@ public class main extends javax.swing.JFrame {
                                 .addGap(118, 118, 118)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(JB_Guardar)
-                                    .addComponent(JB_BDO_probar1)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
-                                .addComponent(test))))
+                                    .addComponent(JB_BDD_probar)))
+                            .addComponent(jLabel2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(208, 208, 208)
                         .addComponent(JB_BDO_probar)))
-                .addGap(53, 53, 53))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,10 +339,8 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(test))
-                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(JT_BDO_instancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,7 +385,7 @@ public class main extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(JT_BDD_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addComponent(JB_BDO_probar1)
+                .addComponent(JB_BDD_probar)
                 .addGap(29, 29, 29)
                 .addComponent(JB_Guardar)
                 .addContainerGap(116, Short.MAX_VALUE))
@@ -240,12 +394,152 @@ public class main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
-       ConectMySQL conect = new ConectMySQL();
-       //conect.conectarMySQL();
-       conect.conectarOracle();
-    }//GEN-LAST:event_testActionPerformed
+    private void JB_BDO_probarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_BDO_probarActionPerformed
+        //destino = new ConectMySQL("admin","12151024","3306");
+    }//GEN-LAST:event_JB_BDO_probarActionPerformed
 
+    private void JB_BDD_probarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_BDD_probarActionPerformed
+        //origen = new ConectMySQL("admin","12151024","1521");
+    }//GEN-LAST:event_JB_BDD_probarActionPerformed
+
+    private void JB_BDO_probarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JB_BDO_probarMouseClicked
+        origen = new ConectMySQL(JT_BDO_usuario.getText(),JT_BDO_password.getText(),JT_BDO_puerto.getText());
+        origen.conectar();
+        String base ="";
+        if(origen.getPort().equals("3306")){
+            base = "MySQL";
+        }else if (origen.getPort().equals("1521")){
+            base = "Oracle";
+        }else{
+           JOptionPane.showMessageDialog(this, "Puerto de conexion no conocido.");
+        }
+        JOptionPane.showMessageDialog(this, "Conectado a base de datos " + base+"  "+ origen.getURL());
+    }//GEN-LAST:event_JB_BDO_probarMouseClicked
+
+    private void JB_BDD_probarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JB_BDD_probarMouseClicked
+        
+        destino = new ConectMySQL(JT_BDD_usuario.getText(),JT_BDD_password.getText(),JT_BDD_puerto.getText());
+        destino.conectar();
+        String base ="";
+        if(destino.getPort().equals("3306")){
+            base = "MySQL";
+        }else if (destino.getPort().equals("1521")){
+            base = "Oracle";
+        }else{
+           JOptionPane.showMessageDialog(this, "Puerto de conexion no conocido.");
+        }
+        JOptionPane.showMessageDialog(this, "Conectado a base de datos " + base+"  "+ destino.getURL());
+                    
+    }//GEN-LAST:event_JB_BDD_probarMouseClicked
+   public static void populateTableWithList(JTable table, ArrayList<String> list) {
+    // Get the table's model
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+    // Loop through the list and add each item as a row
+    for (String item : list) {
+        // Create a new row with the item
+        Object[] row = new Object[1];  // Since you're adding one item per row
+        row[0] = item;  // Assign the current item to the row
+
+        // Add the row to the table
+        model.addRow(row);
+    }
+}
+
+    private void JB_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_GuardarActionPerformed
+        
+        if(destino==null||origen==null){
+            JOptionPane.showMessageDialog(jd_transfer, "Conexion no establecida");
+        }else{
+            jd_transfer.setVisible(true);
+            jd_transfer.pack();
+            jd_transfer.setLocationRelativeTo(this);
+            //lista de origen
+            origen.getTablas();
+            System.out.println("DESTINY");
+            for (int i = 0; i < origen.getTables().size(); i++) {
+                System.out.println(origen.getTables().get(i));
+            }
+            populateTableWithList(jTable2, origen.getTables());
+        }
+        
+    }//GEN-LAST:event_JB_GuardarActionPerformed
+
+    private void LEFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LEFTActionPerformed
+        removeSelectedRow(jTable1);
+    }//GEN-LAST:event_LEFTActionPerformed
+    public static void removeSelectedRow(JTable table) {
+    // Get the table's model
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+    // Get the selected row index
+    int selectedRowIndex = table.getSelectedRow();
+
+    if (selectedRowIndex != -1) {  // Check if a row is selected
+        // Remove the selected row from the model
+        model.removeRow(selectedRowIndex);
+    } else {
+        System.out.println("No row selected to remove.");
+    }
+}
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        jd_transfer.setVisible(false);
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();
+        model2.setRowCount(0);
+    }//GEN-LAST:event_CancelarActionPerformed
+
+    private void RIGHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RIGHTActionPerformed
+        addSelectedRowToAnotherTable(jTable2, jTable1);
+    }//GEN-LAST:event_RIGHTActionPerformed
+    public void addRowsToArrayList(JTable table) {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    for (int i = 0; i < model.getRowCount(); i++) {   
+        String rowData = (String) model.getValueAt(i, 0);
+        sender.add(rowData);  
+    }
+}
+
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+          sender = new ArrayList();
+          addRowsToArrayList(jTable1);
+          for (String object : sender) {
+              System.out.println(object);
+        }
+        //return to sender aca
+    }//GEN-LAST:event_GuardarActionPerformed
+    public void addSelectedRowToAnotherTable(JTable originTable, JTable destinyTable) {
+   
+    DefaultTableModel originModel = (DefaultTableModel) originTable.getModel();
+    DefaultTableModel destinyModel = (DefaultTableModel) destinyTable.getModel();
+
+    
+    int selectedRowIndex = originTable.getSelectedRow();
+
+    if (selectedRowIndex != -1) {  
+       
+        Object selectedRowData = originModel.getValueAt(selectedRowIndex, 0);  
+
+        boolean rowExists = false;
+        for (int i = 0; i < destinyModel.getRowCount(); i++) {
+            if (destinyModel.getValueAt(i, 0).equals(selectedRowData)) {
+                rowExists = true;
+                break;
+            }
+        }
+
+       
+        if (!rowExists) {
+            destinyModel.addRow(new Object[]{selectedRowData});
+        } else {
+            JOptionPane.showMessageDialog(jd_transfer, "Tabla seleccionada ya se encuentra en replicando.");
+        }
+    } else {
+        System.out.println("No row selected in the origin table.");
+    }
+}
     /**
      * @param args the command line arguments
      */
@@ -282,8 +576,10 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancelar;
+    private javax.swing.JButton Guardar;
+    private javax.swing.JButton JB_BDD_probar;
     private javax.swing.JButton JB_BDO_probar;
-    private javax.swing.JButton JB_BDO_probar1;
     private javax.swing.JButton JB_Guardar;
     private javax.swing.JTextField JT_BDD_instancia;
     private javax.swing.JTextField JT_BDD_nombre;
@@ -295,11 +591,16 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextField JT_BDO_password;
     private javax.swing.JTextField JT_BDO_puerto;
     private javax.swing.JTextField JT_BDO_usuario;
+    private javax.swing.JButton LEFT;
+    private javax.swing.JButton RIGHT;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -308,6 +609,14 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JButton test;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JDialog jd_transfer;
     // End of variables declaration//GEN-END:variables
+ConectMySQL origen;
+ConectMySQL destino;
+ArrayList<String> sender;
 }
+

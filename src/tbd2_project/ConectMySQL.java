@@ -289,12 +289,19 @@ private String adaptSchemaForOracle(String createTableQuery) {
     createTableQuery = createTableQuery.replace("VARCHAR(50)", "VARCHAR2(50)").replace("VARCHAR(100)", "VARCHAR2(100)");
 
     // Fix the UNIQUE constraint formatting
-    createTableQuery = createTableQuery.replace("UNIQUE KEY", "CONSTRAINT \"correo_unique\" UNIQUE");
+    createTableQuery = createTableQuery.replace("UNIQUE KEY", "CONSTRAINT \"correo_unique\" UNIQUE (\"correo\")");
 
     // Print the query to debug
     System.out.println("CREATE TABLE query: " + createTableQuery);
     return createTableQuery;
 }
+
+
+
+
+
+
+
 private String getMySQLTableSchema(ConectMySQL origin, String tableName) throws SQLException {
     Statement stmt = origin.conexion.createStatement();
     ResultSet resultSet = stmt.executeQuery("SHOW CREATE TABLE " + tableName);
